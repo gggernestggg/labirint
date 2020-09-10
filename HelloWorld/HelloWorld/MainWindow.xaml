@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HelloWorld"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="550" Width="800">
     <Grid>
         <StackPanel>
             <TextBlock Text="привет" Height="324" FontSize="40" Foreground="White" Background="Black" Name="counter"></TextBlock>
-            <Button Content ="нажми" Height="108" FontSize="60" Click="Button_Click">
+            <Button Name="ClickMe" Content ="нажми" Height="108" FontSize="60" Click="Button_Click" RenderTransformOrigin="0.491,0.593">
             </Button>
-            <Button Content ="$$$" VerticalAlignment ="Stretch"></Button>
+            <Button Content ="$$$" FontSize="20" Click="Button_Click_1" VerticalAlignment ="Stretch"></Button>
+            <Button Content="$$$$$" FontSize="20" Click="Button_Click_2"></Button>
         </StackPanel>
     </Grid>
 </Window>
