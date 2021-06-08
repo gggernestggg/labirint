@@ -94,16 +94,22 @@ namespace war_of_aircraft
             Map.Library.AddPicture("map", "map.png");
             Map.Library.AddPicture("player", "player.png");
             Map.Library.AddContainer("player", "player", ContainerType.AutosizedSingleImage);
+            player.container = "player";
             Map.ContainerSetMaxSide("player", 150);
             Map.ContainerSetCoordinate("player", player.x, player.y);
             Map.ContainerSetAngle("player", player.angle);
             Map.Library.AddPicture("bullet", "bullet.png");
             Map.Library.AddPicture("mishen", "misha.png");
-            for(int i = 0; i < 10; i++)
+            AnimationDefinition animation = new AnimationDefinition();
+            for (int i = 0; i < 10; i++)
             {
                 Map.Library.AddPicture("exp" + i, "exp" + i + ".png");
+                animation.AddFrame(100, "exp" + i);
             }
-            AnimationDefinition animation = new AnimationDefinition();
+            Map.Library.AddAnimation("explosion", animation);
+            Map.Library.AddPicture("0", "exp10.png");
+            animation.AddFrame(10, "0");
+            animation.LastFrame = "0";
         }
 
         void BCE()
@@ -141,6 +147,7 @@ namespace war_of_aircraft
             shoot();
             MoveShots();
             CheckHit();
+            ReloadMine();
 
             player.reload += 50;
         }
@@ -198,7 +205,7 @@ namespace war_of_aircraft
             y = r.Next(0, Map.YAbsolute);
 
             Map.Library.AddContainer(container, "mishen", ContainerType.AutosizedSingleImage);
-            Map.ContainerSetMaxSide(container, 150);
+            Map.ContainerSetMaxSide(container, 50);
             Map.ContainerSetCoordinate(container, player.x, player.y);
             Map.ContainerSetAngle(container, player.angle + 90);
             counter = counter + 1;
@@ -215,7 +222,12 @@ namespace war_of_aircraft
             {
                 if (misha[i].reload >= 3000)
                 {
-
+                    if (Map.CollisionContainers(player.container, misha[i].container))
+                    {
+                        Map.ContainerSetMaxSide(misha[i].container, 150);
+                        Map.AnimationStart(misha[i].container, "explosion", 1);
+                        misha[i].reload = -1000000000;
+                    }
                 }
 
                 else
