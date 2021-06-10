@@ -37,6 +37,7 @@ namespace war_of_aircraft
         TextArea_Vertical Info; // Место для текстовой информации
         Random r = new Random();
         List<GameObject> misha = new List<GameObject>();
+        MediaPlayer Audio = new MediaPlayer();
         public MainWindow()
         {
             #region Подготовка карты и панели меню
@@ -227,6 +228,9 @@ namespace war_of_aircraft
                         Map.ContainerSetMaxSide(misha[i].container, 150);
                         Map.AnimationStart(misha[i].container, "explosion", 1);
                         misha[i].reload = -1000000000;
+                        string FileName = "C:\\git\\labirint\\war of aircraft\\3ByKN\\BUM.flac";
+                        Audio.Open(new Uri(FileName));
+                        Audio.Play();
                     }
                 }
 
