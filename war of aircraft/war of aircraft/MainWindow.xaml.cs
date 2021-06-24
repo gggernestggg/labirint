@@ -80,6 +80,7 @@ namespace war_of_aircraft
             player.y = 50;
             player.speed = 3;
             player.reload = 1000;
+            player.hp = 10;
             addPictures();
             //player.Name = 
             Map.SetMapBackground("map");
@@ -87,7 +88,7 @@ namespace war_of_aircraft
             Start.player = player;
             Start.ShowDialog();
             timer.AddAction(BCE, 10);
-            timer.AddAction(mishen, 1000);
+            timer.AddAction(mishen, 30000);
         }
 
         void addPictures()
@@ -101,6 +102,7 @@ namespace war_of_aircraft
             Map.ContainerSetAngle("player", player.angle);
             Map.Library.AddPicture("bullet", "bullet.png");
             Map.Library.AddPicture("mishen", "misha.png");
+            Map.Library.AddPicture("GO", "Game over.png");
             AnimationDefinition animation = new AnimationDefinition();
             for (int i = 0; i < 10; i++)
             {
@@ -143,6 +145,15 @@ namespace war_of_aircraft
                 player.x -= player.dx / 3;
                 player.y -= player.dy / 3;
                 Map.ContainerSetCoordinate("player", player.x, player.y);
+            }
+
+            if (player.hp <= 0)
+            {
+                Map.Library.AddContainer("GO", "GO");
+                Map.ContainerSetCoordinate("GO", Map.XAbsolute / 2, Map.YAbsolute / 2);
+                Map.ContainerSetSize("GO", Map.XAbsolute, Map.YAbsolute);
+                timer.RemoveAction(BCE, 10);
+                timer.RemoveAction(mishen, 30000);
             }
 
             shoot();
@@ -231,6 +242,8 @@ namespace war_of_aircraft
                         string FileName = "C:\\git\\labirint\\war of aircraft\\3ByKN\\BUM.flac";
                         Audio.Open(new Uri(FileName));
                         Audio.Play();
+                        misha.RemoveAt(i);
+                        player.hp = player.hp - 5.0;
                     }
                 }
 
@@ -281,5 +294,10 @@ namespace war_of_aircraft
         public double dy;
         public string container;
         public int reload;
+        public double hp;
+        public void getDamage(string damageType, double damage)
+        {
+            //hp = hp - 
+        }
     }
 }
