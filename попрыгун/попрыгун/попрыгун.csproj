@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="BaseLogic">
+      <HintPath>..\BaseLogic.dll</HintPath>
+    </Reference>
+    <Reference Include="CanvasVisualisation">
+      <HintPath>..\CanvasVisualisation.dll</HintPath>
+    </Reference>
+    <Reference Include="Interaction">
+      <HintPath>..\Interaction.dll</HintPath>
+    </Reference>
+    <Reference Include="LabLib">
+      <HintPath>..\LabLib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
