@@ -28,6 +28,7 @@ namespace попрыгун
         List<Platform> Platforms = new List<Platform>();
         TimerController timer = new TimerController();
         double speed = -1;
+        int playerX, playerY;
         public MainWindow()
         {
 
@@ -54,6 +55,8 @@ namespace попрыгун
             Map.Library.AddContainer("player", "player", ContainerType.AutosizedSingleImage);
             Map.ContainerSetMaxSide("player", 100);
             Map.ContainerSetCoordinate("player", 960, 540);
+            playerX = 960;
+            playerY = 540;
             Platform.Map = Map;
             Platform platform = new Platform();
             platform.SetCoordinate(960, 600);
@@ -78,16 +81,42 @@ namespace попрыгун
             {
                 speed = speed - 0.05;
             }
+
+            checkPlatform();
+        }
+
+        bool checkPlatform ()
+        {
+            bool onPlatform = false;
+            for(int i = 0; i < Platforms.Count;i++)
+            {
+                if (playerX > Platforms[i].x - 250 && playerX < Platforms[i].x + 250 &&
+                    Platforms[i].y - playerY > 58 && Platforms[i].y - playerY < 62)
+                {
+                    speed = 0;
+                }
+            }
+            return onPlatform;
         }
 
         void checkKey(Key k)
+        {
+            if (k == Key.Space)
             {
-                if (k == Key.Space)
-                {
-                    speed = 5;
-                }
+                speed = 5;
+            }
 
-            if (k == Key.LeftAlt)
+            if (k == Key.Right)
+            {
+                movePlayer(playerX + 5, playerY);
+            }
+
+            if (k == Key.Left)
+            {
+                movePlayer(playerX - 5, playerY);
+            }
+
+            /*if (k == Key.LeftAlt)
             {
                 for(int i = 0; i < Platforms.Count; i++)
                 {
@@ -97,10 +126,19 @@ namespace попрыгун
             if (k == Key.RightAlt)
             {
                 speed = 5;
-            }
+            }*/
         }
 
-        
+        void movePlayer (int newX, int newY)
+        {
+            playerX = newX;
+            playerY = newY;
+
+            Map.ContainerSetCoordinate("player", newX, newY);
+
+        }
+
+
     }
     class Platform
     {
