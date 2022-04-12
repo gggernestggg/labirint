@@ -29,6 +29,8 @@ namespace попрыгун
         TimerController timer = new TimerController();
         double speed = -1;
         int playerX, playerY;
+        Platform lastPlatform;
+        Random r = new Random();
         public MainWindow()
         {
 
@@ -59,6 +61,7 @@ namespace попрыгун
             playerY = 540;
             Platform.Map = Map;
             Platform platform = new Platform();
+            lastPlatform = platform;
             platform.SetCoordinate(960, 600);
             Platforms.Add(platform);
 
@@ -83,6 +86,7 @@ namespace попрыгун
             }
 
             checkPlatform();
+            createPlatform();    
         }
 
         bool checkPlatform ()
@@ -135,6 +139,18 @@ namespace попрыгун
             playerY = newY;
 
             Map.ContainerSetCoordinate("player", newX, newY);
+
+        }
+
+        void createPlatform()
+        {
+            if (lastPlatform.y - playerY > 400)
+            {
+                Platform platform = new Platform();
+                lastPlatform = platform;
+                platform.SetCoordinate(r.Next(0, 1920), playerY - 50);
+                Platforms.Add(platform);
+            }
 
         }
 
