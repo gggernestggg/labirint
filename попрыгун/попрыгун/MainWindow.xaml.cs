@@ -80,7 +80,7 @@ namespace попрыгун
                 Platforms[i].SetCoordinate(0, (int)speed);
             }
 
-            if(speed > -1)
+            if(speed > -50)
             {
                 speed = speed - 0.05;
             }
